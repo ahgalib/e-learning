@@ -30,7 +30,7 @@
                     </div><!-- /.card-header -->
                     <!-- form start -->
                     <form method="post" action="{{ route('saveProfile') }}" enctype="multipart/form-data">
-                        <!-- @if(Session::get('fail'))
+                        @if(Session::get('fail'))
                             <div class="alert alert-danger mt-3">
                                 {{Session::get('fail')}}
                             </div>
@@ -38,24 +38,25 @@
                             <div class="alert alert-success mt-3">
                                 {{Session::get('success')}}
                             </div>
-                        @endif -->
+                        @endif
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Address</label>
-                                <input type="text" class="form-control" name="address" id="address">
+                                <input type="text" class="form-control" name="address" id="address" value="{{old('address')}}">
                                 <span style="color:red;">@error('address'){{$message}}@enderror</span>
                             </div>
 
                             <div class="form-group">
                                 <label for="mobile" class="col-md-4 col-form-label text-md-end">{{ __('Mobile') }}</label>
-                                <input  type="number" class="form-control" name="mobile" placeholder="Enter your mobile number">
+                                <input  type="number" class="form-control" name="mobile" placeholder="Enter your mobile number" value="{{old('mobile')}}">
                                 <span style="color:red;">@error('mobile'){{$message}}@enderror</span>
                             </div>
 
                             <div class="form-group">
                                 <label for="image">Image</label>
-                                <input type="file" class="form-control" name="image">
+                                <input type="file" class="form-control" name="image" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+                                <img id="blah" width="200" src="" alt="">
                                 <span style="color:red;">@error('image'){{$message}}@enderror</span>
                             </div>
                         </div>
