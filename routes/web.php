@@ -4,12 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\adminCon;
 use App\Http\Controllers\admin\categoryCon;
 use App\Http\Controllers\admin\courseCon;
+use App\Http\Controllers\frontEnd\frontEndCon;
+
 
 Auth::routes();
-
-Route::get('/',function(){
-    return view('font_end.index');
-});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('/admin')->group(function(){
@@ -40,4 +38,10 @@ Route::prefix('/admin')->group(function(){
     Route::get('/addCourse',[courseCon::class,'showAddCoursePage'])->name('addCourse');
     Route::post('/saveCourse',[courseCon::class,'saveCourse'])->name('saveCourse');
 });
-
+//front-end
+Route::get('/',[frontEndCon::class,'showIndexPage']);
+Route::get('/cart',[frontEndCon::class,'showCartPage']);
+Route::get('/customer/login',[frontEndCon::class,'showCustomerLoginPage']);
+Route::post('/customer/login/check',[frontEndCon::class,'checkCustomerLoginInfo']);
+Route::get('/customer/register',[frontEndCon::class,'showCustomerRegisterPage']);
+Route::post('/customer/save',[frontEndCon::class,'saveCustomerInfo']);
