@@ -127,17 +127,20 @@
         </div>
         <div class="row g-4 justify-content-center">
             @foreach ($popular_course as $pop_courses)
+            <form action="cart/store" method="post">
+                @csrf
+
 
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="course-item bg-light">
                         <div class="position-relative overflow-hidden">
-                            <a href="/cart"><img class="img-fluid" src="{{asset('upload/course')}}/{{$pop_courses->course_image}}" alt=""></a>
+                            <img class="img-fluid" src="{{asset('upload/course')}}/{{$pop_courses->course_image}}" alt="">
                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                                 @if($pop_courses->course_discount)
                                     <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">{{$pop_courses->course_discount}}% off</a>
                                 @endif
                                 <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                <button type="submit" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Add to cart</a>
                             </div>
                         </div>
                         <div class="text-center p-4 pb-0">
@@ -157,9 +160,11 @@
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
                             <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
                         </div>
+                        <input type="text" name="course_id" value="{{$pop_courses->id}}">
                     </div>
                 </div>
-            @endforeach
+            </form>
+                @endforeach
         </div>
 
     </div>

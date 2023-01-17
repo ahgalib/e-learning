@@ -40,8 +40,10 @@ Route::prefix('/admin')->group(function(){
 });
 //front-end
 Route::get('/',[frontEndCon::class,'showIndexPage']);
-Route::get('/cart',[frontEndCon::class,'showCartPage']);
+Route::get('/cart',[frontEndCon::class,'showCartPage'])->middleware(['customerAuthCheck']);
+Route::post('/cart/store',[frontEndCon::class,'saveCartPage']);
 Route::get('/customer/login',[frontEndCon::class,'showCustomerLoginPage']);
 Route::post('/customer/login/check',[frontEndCon::class,'checkCustomerLoginInfo']);
+Route::get('/customer/logout',[frontEndCon::class,'customerLogout']);
 Route::get('/customer/register',[frontEndCon::class,'showCustomerRegisterPage']);
 Route::post('/customer/save',[frontEndCon::class,'saveCustomerInfo']);

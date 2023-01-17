@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\CourseCategory;
 use App\Models\customerLogin;
+use App\Models\Cart;
 use Hash;
 use Auth;
 class FrontEndCon extends Controller
@@ -19,7 +20,8 @@ class FrontEndCon extends Controller
     }
 
     public function showCartPage(){
-        return view('Font_end.cart');
+        $cart = Cart::where('customer_login_id',Auth::guard('customer_login')->user()->id)->get();
+        return view('Font_end.cart',compact('cart'));
     }
 
     public function showCustomerLoginPage(){
@@ -48,5 +50,19 @@ class FrontEndCon extends Controller
         ]);
         return back();
     }
+
+    public function customerLogout(){
+        Auth::guard('customer_login')->logout();
+        return redirect('customer/login');
+    }
+
+    public function saveCartPage(Request $request){
+        Cart::create([
+            'customer_login_id'=>Auth::guard('customer_login')->user()->id,
+            'course_id'=>$request->course_id,
+        ]);
+        return redirect('/cart');
+    }
+
 
 }

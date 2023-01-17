@@ -65,7 +65,11 @@
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="/customer/login" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            @auth('customer_login')
+                <a href="/customer/logout" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">{{Auth::guard('customer_login')->user()->name}}Logout<i class="fa fa-arrow-right ms-3"></i></a>
+            @else
+                <a href="/customer/login" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            @endauth
         </div>
     </nav>
     <!-- Navbar End -->

@@ -6,30 +6,36 @@
             <table class="table table-strip">
                 <tr>
                     <th>SI NO</th>
-                    <th>Course Category</th>
                     <th>Course Name</th>
-                    <th>Course Price</th>
                     <th>Discount</th>
+                    <th>Unit Price</th>
+                    <th>Final Price</th>
 
                 </tr>
+                <?php $total_price = 0;?>
+                @foreach ($cart as $key=>$cart)
+
                 <tr>
-                    <td>
-                        <table class="table table-strip">
-                            <tr><td>first td</td></tr>
-                            <tr><td>second td</td> </tr>
-                        </table>
-                    </td>
-                    <td> web dev </td>
-                    <td> web dev </td>
-                    <td> web dev </td>
-                    <td> web dev </td>
+                    <td>{{$key+1}}</td>
+
+                    <td> {{$cart->course->course_name}} </td>
+                    <td>{{$cart->course->course_discount}}  </td>
+                    <td>{{$cart->course->course_price}}  </td>
+                    @if($cart->course->course_discount)
+                        <td>
+
+                            {{$final_price = $cart->course->course_price - ($cart->course->course_price *$cart->course->course_discount/100)}}
+                        </td>
+                    @else
+                        <td>{{$final_price = $cart->course->course_price}}  </td>
+                    @endif
                 </tr>
+                <?php $total_price = $total_price + $final_price?>
+                @endforeach
+
                 <tr>
-                    <td>2</td>
-                    <td>web design</td>
-                    <td>Reacy</td>
-                    <td>2888</td>
-                    <td>39</td>
+                    <td colspan="4">total Price</td>
+                    <td><?php echo $total_price;?></td>
                 </tr>
             </table>
         </div>
